@@ -34,7 +34,7 @@
            docs)))
 
 (defn search-loop-regex [docs term]
-  (let [regex (re-pattern (str "(?i)\b" term "\b"))]
+  (let [regex (re-pattern (str "(?i)\\b" term "\\b"))]
     (doall
      (filter (fn [{:keys [text]}]
                (and text (re-find regex text)))
