@@ -1,6 +1,7 @@
 (ns search
   (:require [clojure.java.io :as io]
-            [clojure.data.xml :as xml]))
+            [clojure.data.xml :as xml]
+            [clojure.string :as str]))
 
 (defn get-children [element tag]
   (->> element
@@ -26,3 +27,8 @@
                        :url (get-str doc :url)
                        :text (get-str doc :abstract)})
                     docs)))))
+
+(defn search-loop [docs term]
+  (doall
+   (filter (fn [{:keys [text]}] (and text (str/includes? text term)))
+           docs)))
