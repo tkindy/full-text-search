@@ -39,3 +39,8 @@
      (filter (fn [{:keys [text]}]
                (and text (re-find regex text)))
              docs))))
+
+(comment
+  (def docs (load-docs "data/enwiki-latest-abstract1.xml"))
+  (time (search-loop-substring docs "cat"))
+  (time (search-loop-regex docs "cat")))
