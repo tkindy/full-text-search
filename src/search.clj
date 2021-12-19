@@ -28,7 +28,14 @@
                        :text (get-str doc :abstract)})
                     docs)))))
 
-(defn search-loop [docs term]
+(defn search-loop-substring [docs term]
   (doall
    (filter (fn [{:keys [text]}] (and text (str/includes? text term)))
            docs)))
+
+(defn search-loop-regex [docs term]
+  (let [regex (re-pattern (str "(?i)\b" term "\b"))]
+    (doall
+     (filter (fn [{:keys [text]}]
+               (and text (re-find regex text)))
+             docs))))
